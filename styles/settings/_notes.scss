@@ -1,0 +1,9 @@
+$note-types: up down left right;
+$note-count: 100;
+$notes: ();
+
+@for $i from 1 through $note-count {
+  $delay: floor(((300 - random(150)) * (4 / (1 + $i * 0.02))) / 100) / 4;
+  $note: nth($note-types, random(4));
+  $notes: append($notes, $delay $note, comma);
+}

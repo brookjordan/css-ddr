@@ -1,0 +1,60 @@
+$bar-width: 1;
+$mid-point: 81.25;
+$full-offset: 10.9375;
+
+@keyframes button-full-fade {
+  0%,
+  #{$mid-point + ($full-offset * $bar-width)}% {
+    bottom: -100%;
+  }
+
+  #{$mid-point - ($full-offset * $bar-width)}% {
+    bottom: 0;
+  }
+}
+
+.button {
+  $seconds-count: 3;
+
+  position: absolute;
+  bottom: -100%;
+  animation: button-full-fade s($seconds-count) step-end;
+  //background: white;
+
+  $i: 1;
+  $delay: 0;
+  @each $note-deets in $notes {
+    $note: nth($note-deets, 2);
+    $delay: $delay + nth($note-deets, 1);
+
+    &--#{$i} {
+      animation-delay: s($delay);
+
+      @if $note == left or $note == right {
+        width: 3.5em;
+        height: 7em;
+
+        @if $note == right {
+          left: 3.5em;
+        }
+      }
+
+      @if $note == up or $note == down {
+        right: 0;
+        width: 7em;
+        height: 3.5em;
+
+        @if $note == up {
+          margin-bottom: 3.5em;
+        }
+      }
+
+
+      #point--#{$i}:checked ~ & {
+        display: none;
+      }
+    }
+
+    $i: $i + 1;
+  }
+}

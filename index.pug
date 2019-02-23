@@ -1,0 +1,39 @@
+-
+  let noteIndex;
+  let noteCount = 100;
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    meta(name="apple-mobile-web-app-capable", content="yes")
+    title DDR CSS
+    link(rel="stylesheet", href="entry.css")
+  body
+    .board
+      .bar
+      
+      - noteIndex = 1
+      while noteIndex !== noteCount +1
+        input.point(id=`point--${noteIndex}`, type="checkbox")
+        - noteIndex += 1
+
+      - noteIndex = 1
+      while noteIndex !== noteCount +1
+        .pog(class=`pog--${noteIndex}`)
+          .pog__inner
+        - noteIndex += 1
+
+      - noteIndex = 1
+      while noteIndex !== noteCount +1
+        label.button(class=`button--${noteIndex}`, for=`point--${noteIndex}`)
+        - noteIndex += 1
+
+      .arrow.arrow--left
+      .arrow.arrow--up
+      .arrow.arrow--down
+      .arrow.arrow--right
+
+      .score

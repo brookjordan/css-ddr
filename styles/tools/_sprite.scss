@@ -1,0 +1,8 @@
+@mixin build-sprite(
+  $url,
+  $name: sprite-anim,
+  $frame-count: 10,
+  $duration: 0.5s,
+) {
+  background-image: url($url);
+}

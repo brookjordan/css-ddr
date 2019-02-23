@@ -1,0 +1,21 @@
+$fps: 30 !default;
+
+@function round-to-fps($s) {
+  @return round($s * $fps) / $fps;
+}
+
+@function frames-in-seconds($s) {
+  @return round-to-fps($s) * $fps;
+}
+
+@function seconds-in-frames($f) {
+  @return round($f) * (1 / $fps);
+}
+
+@function s($s) {
+  @return round-to-fps($s) * 1s;
+}
+
+@function f($frame-count) {
+  @return $frame-count * (1s / $fps);
+}

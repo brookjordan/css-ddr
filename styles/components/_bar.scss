@@ -1,0 +1,42 @@
+$bar-width: 1;
+
+@keyframes score-bar {
+  0% {
+    transform: translate(-50%, -50%);
+    //background-position: 0 0;
+  }
+
+  100% {
+    transform: translate(0%, -50%);
+    //background-position: 0 #{1 * $fps}px;
+  }
+}
+
+.bar {
+  position: absolute;
+  width: 100%;
+  height: 4em;
+  top: 2em;
+  left: 0;
+  background: #141023;
+  transform: scaleY($bar-width);
+
+  &::after {
+    $duration-seconds: round-to-fps(1.3);
+
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 200%;
+    padding-top: 100% * (24 / 520);
+    background-image: url(./score-bar.svg);
+    background-color: black;
+    background-position: 0 50%;
+    background-size: 50% auto;
+    animation-name: score-bar;
+    animation-duration: s(max(seconds-in-frames(12), $duration-seconds));
+    animation-timing-function: steps(max(12, frames-in-seconds($duration-seconds)), start);
+    animation-iteration-count: infinite;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "html": "pug index.pug -P",
+    "css": "sass entry.scss entry.css",
+    "dev": "npm run css && npm run html",
+    "build": "sass --style=compressed entry.scss entry.css && pug index.pug"
+  }
+}

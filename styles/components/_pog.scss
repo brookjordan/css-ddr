@@ -1,0 +1,160 @@
+@import "../settings/notes";
+@import "../tools/sprite";
+
+$css-vars: false;
+$align: false;
+
+$seconds-to-top: 3;
+
+$pog-frame-count: 12;
+$sprite-sheet-width: 100% * $pog-frame-count;
+
+$pog-ratio: 4;
+$part-size: 16 / ($pog-ratio * 4 + 5) * 1em;
+$pog-size: $part-size * $pog-ratio;
+
+@keyframes pog-sprite {
+  @for $i from 0 through $pog-frame-count {
+    #{100% * $i / $pog-frame-count} {
+      background-position: (-100% * $i) 50%;
+    }
+  }
+}
+
+@keyframes pog-up {
+  0% {
+    transform: translateY(0);
+    visibility: visible;
+  }
+  100% {
+    transform: translateY(-32em);
+    visibility: visible;
+  }
+}
+
+@if $css-vars {
+  :root {
+    --pog-ratio: $pog-ratio;
+    --part-size: calc(16 / (var(--pog-ratio) * 4 + 5) * 1em);
+    --pog-size: calc(var(--part-size) * var(--pog-ratio));
+  }
+}
+
+.pog {
+  position: absolute;
+  top: 100%;
+  visibility: hidden;
+  @if not $align {
+    left: 6.5em;
+  }
+  animation: pog-up s($seconds-to-top) steps(frames-in-seconds($seconds-to-top), start);
+  pointer-events: none;
+  contain: layout;
+
+  &__inner {
+    $die-duration-seconds: 0.3;
+    width: $pog-size;
+    height: $pog-size;
+    transition: s($die-duration-seconds) steps(frames-in-seconds($die-duration-seconds), start);
+    background-size: $sprite-sheet-width 100%;
+
+    animation-duration: f($pog-frame-count);
+    animation-iteration-count: infinite;
+    animation-timing-function: step-end;
+    animation-name: pog-sprite;
+  }
+
+  $i: 1;
+  $total-delay: 0;
+  @each $note-deets in $notes {
+    $note: nth($note-deets, 2);
+    $note-delay: nth($note-deets, 1);
+    $total-delay: $total-delay + $note-delay;
+    $delay: round-to-fps($total-delay);
+
+    &--#{$i} {
+      animation-delay: $delay * 1s;
+
+      @if $align {
+        @if $note == left {
+          @if $css-vars {
+            left: var(--part-size);
+          } @else {
+            left: $part-size;
+          }
+        }
+
+        @if $note == up {
+          @if $css-vars {
+            left: calc(var(--part-size) * 2 + var(--pog-size));
+          } @else {
+            left: $part-size * 2 + $pog-size;
+          }
+        }
+
+        @if $note == down {
+          @if $css-vars {
+            left: calc(var(--part-size) * 3 + var(--pog-size) * 2);
+          } @else {
+            left: $part-size * 3 + $pog-size * 2;
+          }
+        }
+
+        @if $note == right {
+          @if $css-vars {
+            left: calc(var(--part-size) * 4 + var(--pog-size) * 3);
+          } @else {
+            left: $part-size * 4 + $pog-size * 3;
+          }
+        }
+      }
+
+      .pog__inner {
+        animation-delay: -(f(1) * random($pog-frame-count));
+
+        @if $note == left {
+          @include build-sprite(
+            $url: "whoosh-left.svg",
+            $name: whoosh-left,
+            $frame-count: $pog-frame-count,
+          );
+        }
+
+        @if $note == up {
+          @include build-sprite(
+            $url: "whoosh-up.svg",
+            $name: whoosh-up,
+            $frame-count: $pog-frame-count,
+          );
+        }
+
+        @if $note == down {
+          @include build-sprite(
+            $url: "whoosh-down.svg",
+            $name: whoosh-down,
+            $frame-count: $pog-frame-count,
+          );
+        }
+
+        @if $note == right {
+          @include build-sprite(
+            $url: "whoosh-right.svg",
+            $name: whoosh-right,
+            $frame-count: $pog-frame-count,
+          );
+        }
+      }
+
+      #point--#{$i}:checked ~ & {
+        animation-play-state: paused;
+
+        .pog__inner {
+          transform: scale(1.5);
+          opacity: 0;
+        }
+      }
+    }
+
+    $i: $i + 1;
+  }
+}

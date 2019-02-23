@@ -1,0 +1,25 @@
+.score {
+  position: absolute;
+  bottom: 6.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1em;
+  pointer-events: none;
+  white-space: nowrap;
+
+  &::before {
+    content: counter(points);
+    font-size: 2em;
+    vertical-align: middle;
+    color: white;
+  }
+
+  &::after {
+    content: ' combo: ' counter(combo);
+    font-size: 1em;
+    vertical-align: middle;
+    text-transform: uppercase;
+    color: white;
+    opacity: calc(1 * counter-value(combo));
+  }
+}

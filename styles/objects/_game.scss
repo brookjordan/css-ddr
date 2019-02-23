@@ -1,0 +1,21 @@
+$aspect-ratio-x: 9;
+$aspect-ratio-y: 16;
+
+.board {
+  position: relative;
+  width: 100vh / $aspect-ratio-y * $aspect-ratio-x;
+  height: 100vh;
+  margin: 0 auto;
+  background: rgb(29, 23, 44) url("./level.svg");
+  font-size: #{100vh / $aspect-ratio-y * $aspect-ratio-x / $aspect-ratio-y};
+  overflow: hidden;
+  contain: strict;
+
+  @media (max-aspect-ratio: #{$aspect-ratio-x} / #{$aspect-ratio-y}) {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100vw;
+    height: 100vw / $aspect-ratio-x * $aspect-ratio-y;
+    font-size: #{100vw / $aspect-ratio-y};
+  }
+}

@@ -1,0 +1,15 @@
+$fps: 24;
+
+@import "styles/tools/timing";
+
+@import "styles/elements/resets";
+@import "styles/elements/base";
+
+@import "styles/objects/game";
+
+@import "styles/components/bar";
+@import "styles/components/pog";
+@import "styles/components/button";
+@import "styles/components/point";
+@import "styles/components/score";
+@import "styles/components/arrows";

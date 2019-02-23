@@ -1,0 +1,16 @@
+.point {
+  position: absolute;
+  left: -200vw;
+}
+
+.point:checked {
+  counter-increment: points;
+}
+
+.point:not(:checked) + .point:checked {
+  counter-reset: combo;
+}
+
+.point:checked + .point:checked {
+  counter-increment: combo points;
+}

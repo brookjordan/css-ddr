@@ -1,0 +1,35 @@
+$fps: 12;
+
+@function round-to-fps($seconds) {
+  @return round($seconds * $fps) / $fps;
+}
+
+@function s($s) {
+  @return $s * 1s;
+}
+
+@keyframes score-bar {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 520px (24px * 13);
+  }
+}
+
+html, body { margin: 0; background-color: #1d172c; }
+
+.score-bar {
+  $seconds-count: round-to-fps(2);
+
+  margin: 200px auto;
+  width: 520px;
+  height: 24px;
+  background-image: url("./score-bar.svg");
+  background-size: cover;
+  background-position: 0 0;
+  animation-name: score-bar;
+  animation-duration: s($seconds-count);
+  animation-timing-function: steps(#{$seconds-count * $fps}, start);
+  animation-iteration-count: infinite;
+}
