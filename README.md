@@ -1,4 +1,4 @@
-# css-ddr
+# HTML and CSS version of Dance Dance Revolution
 A version of DDR created in pure CSS.
 
 ## To run
